@@ -38,9 +38,7 @@ LOG.debug("Starting with log level: %s" % LOG_LEVEL )
 APP = Flask(__name__)
 
 def require_jwt(function):
-    """
-    Decorator to check valid jwt is present.
-    """
+   
     @functools.wraps(function)
     def decorated_function(*args, **kws):
         if not 'Authorization' in request.headers:
