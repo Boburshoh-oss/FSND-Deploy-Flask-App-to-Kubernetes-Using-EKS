@@ -29,4 +29,3 @@ htmlcov/
 .direnv
 
 .github/**
-.env_file
