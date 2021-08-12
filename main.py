@@ -38,7 +38,9 @@ LOG.debug("Starting with log level: %s" % LOG_LEVEL )
 APP = Flask(__name__)
 
 def require_jwt(function):
-   
+    """
+    Decorator to check valid jwt is present.
+    """
     @functools.wraps(function)
     def decorated_function(*args, **kws):
         if not 'Authorization' in request.headers:
@@ -47,7 +49,7 @@ def require_jwt(function):
         token = str.replace(str(data), 'Bearer ', '')
         try:
             jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
-        except: 
+        except: # pylint: disable=bare-except
             abort(401)
 
         return function(*args, **kws)
@@ -61,7 +63,9 @@ def health():
 
 @APP.route('/auth', methods=['POST'])
 def auth():
-  
+    """
+    Create JWT token based on email.
+    """
     request_data = request.get_json()
     email = request_data.get('email')
     password = request_data.get('password')
