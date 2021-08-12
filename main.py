@@ -49,7 +49,7 @@ def require_jwt(function):
         token = str.replace(str(data), 'Bearer ', '')
         try:
             jwt.decode(token, JWT_SECRET, algorithms=['HS256'])
-        except: # pylint: disable=bare-except
+        except: 
             abort(401)
 
         return function(*args, **kws)
@@ -63,9 +63,7 @@ def health():
 
 @APP.route('/auth', methods=['POST'])
 def auth():
-    """
-    Create JWT token based on email.
-    """
+  
     request_data = request.get_json()
     email = request_data.get('email')
     password = request_data.get('password')
